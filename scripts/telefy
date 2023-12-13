@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ ${debug:-false} == true ]]; then
+    set -x
+fi
+
+if ! [[ -f ${0%.sh}.env ]]; then
+    echo ${0%.sh}.env not found
+    exit 1
+fi
+
+source $PWD/${0%.sh}.env
+
+if [[ -p /dev/stdin ]]; then
+    tsm_body="$(< /dev/stdin)"
+else
+    echo stdin was empty
+    exit 1
+fi
+
+declare -r log_file=$PWD/${0%.sh}.log
+
+### remote the
+### --socks5-hostname localhost:9071 \
+### if you are not blocked
+
+curl -sL \
+    --socks5-hostname $socks5_hostname \
+    -o $log_file \
+    -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{ "parse_mode": "HTML", "chat_id": "'"$telegram_uid"'", "text": "'"${tsm_body}"'", "disable_notification": "false" }' \
+    https://api.telegram.org/bot${telegram_bot_token}/sendMessage;
+
