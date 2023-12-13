@@ -11,7 +11,7 @@ if ! [[ -f ${0%.sh}.env ]]; then
     exit 1
 fi
 
-source $PWD/${0%.sh}.env
+source ${0%.sh}.env
 
 if [[ -p /dev/stdin ]]; then
     tsm_body="$(< /dev/stdin)"
@@ -20,7 +20,7 @@ else
     exit 1
 fi
 
-declare -r log_file=$PWD/${0%.sh}.log
+declare -r log_file=${0%.sh}.log
 
 ### remote the
 ### --socks5-hostname localhost:9071 \
