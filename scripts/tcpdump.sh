@@ -22,6 +22,7 @@ tcpdump -tttt -Z root -i $inet_name port $active_port  -w ${dump_file_name}.pcap
 ### read a dump file
 ### tcpdump -n -s 0  -r file
 
+### https://serverfault.com/questions/478636/tcpdump-out-pcap-permission-denied
 ### disable this on Debian / Ubuntu 
 ### systemctl stop apparmor
 ### systemctl disable apparmor
