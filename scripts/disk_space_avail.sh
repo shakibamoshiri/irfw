@@ -10,6 +10,12 @@ if [[ ${debug:-false} == true ]]; then
     set -x
 fi
 
+if ! [[ -f ${0%.sh}.env ]]; then
+    echo ${0%.sh}.env not found
+    exit 1
+fi
+
+source ${0%.sh}.env
 
 declare -i disk_space_avail=0
 declare disk_space_avail_value=''
