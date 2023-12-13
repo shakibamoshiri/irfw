@@ -31,7 +31,7 @@ while true; do
     
     if (( $disk_space_avail <= 1000 )); then
         echo "$warning_msg"
-        echo "$warning_msg" | tee | telefy
+        echo "$warning_msg" | telefy
     else
         echo "$info_msg"
     fi
