@@ -1,0 +1,32 @@
+# To reload systemd daemon after changes to this file:
+# systemctl --system daemon-reload
+
+[Unit]
+Description=tcp-dump
+# ExecStopPost
+
+
+[Service]
+ExecStart=/opt/app/tif/scripts/tcpdump.sh
+# ExecStartPost=
+ExecStop=/bin/kill -WINCH ${MAINPID}
+# ExecStopPost=
+
+
+# how to handle restart
+Restart=always
+
+# Configures the time to sleep before restarting a service
+RestartSec=3
+
+User=root
+Group=root
+
+WorkingDirectory=/opt/app/tif/scripts
+
+
+[Install]
+WantedBy=network-online.target
+# After=network-online.target
+# Wants=network-online.target
+
