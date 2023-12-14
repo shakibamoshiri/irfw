@@ -1,9 +1,15 @@
 #!/bin/bash
 
+set -u
+set -T
+# set -C
+set -o pipefail
 
-set -euTo pipefail
+if [[ ${debug:-false} == true ]]; then
+    set -x
+fi
 
-declare -r ps_output_file=ps.log
+declare -r ps_output_file=ps.txt
 
 ps -Ao user,uid,comm,pid,pcpu,pmem --sort=-pcpu > $ps_output_file
 
